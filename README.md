@@ -16,17 +16,13 @@ tktk Write a short but descriptive summary of the content in this module.
 | ------ |:----------:|:-----:| ------ |
 | [Setup](./setup/README.md)                               | -- | -- | Setting up the development environment  |
 | [Concepts](./concepts/README.md)                         | -- | -- | tktk skills covered                     |
-| [tktk Microlesson Name](./tktk-microlesson-01/README.md) | -- | -- | tktk skills covered                     |
-| [tktk Microlesson Name](./tktk-microlesson-02/README.md) | -- | -- | tktk skills covered                     |
-| [tktk Microlesson Name](./tktk-microlesson-03/README.md) | -- | -- | tktk skills covered                     |
-| **Total content**                                        | -- | -- |                                         |
-
-## Level Up content
-
-| Lesson | Video Time | Video | Skills |
-| ------ |:----------:|:-----:| ------ |
-| [tktk Microlesson Name](./tktk-microlesson-04/README.md) | -- | -- | tktk skills covered                     |
-| **Total Level Up content**                               | -- | -- |                                         |
+| [Defining the Database](./defining-the-database/README.md) | Define and export a mongoose model for use with an API.  |
+| [Create Route](./create-route/README.md) | Create a create route that returns JSON |
+| [Index Route](./index-route/README.md) | Create an index route that returns JSON |
+| [Show Route](./show-route/README.md) | Create a show route that returns JSON |
+| [Delete Route](./delete-route/README.md) | Create a delete route that returns JSON |
+| [Update Route](./update-route/README.md) | Create an update route that returns JSON |
+| [CORS](./cors/README.md) | Enable CORS for the API |
 
 ## References
 
