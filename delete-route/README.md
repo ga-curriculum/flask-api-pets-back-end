@@ -46,17 +46,6 @@ After you have sent the request, you should receive a status code of `204` with 
 
 <details>
     <summary>Reveal Answer</summary>
-    ```python
-    @app.route('/pets/<pet_id>', methods=['DELETE'])
-def delete_pet(pet_id):
-  try:
-    con = get_db_connection()
-    cursor = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-    cursor.execute("DELETE FROM pets WHERE id = %s", (pet_id,))
-    con.commit()
-    cursor.close()
-    return "Pet deleted successfully", 204
-  except Exception as e:
-    return str(e), 500
-    ```
+
+    ![delete-route](./assets/delete-route.png)
 </details>
