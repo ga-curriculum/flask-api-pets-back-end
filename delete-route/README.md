@@ -46,6 +46,5 @@ After you have sent the request, you should receive a status code of `204` with 
 
 <details>
     <summary>Reveal Answer</summary>
-
-    ![delete-route](./assets/delete-route.png)
+    <img src="./assets/delete-route.png" alt="">
 </details>
