@@ -4,138 +4,65 @@
 
 ## UPDATE - Update Route
 
-In this section, we will create a new route to update a single pet. This route will be a `PUT` request to `/pets/:petId`, and will return a JSON response with the updated pet.
+In this section, we will create a new route to update a single pet. This route will be a `PUT` request to `/pets/<pet_id>`, and will return a JSON response with the updated pet.
 
 We will be following these specs when building the route:
 
 - **CRUD Action:** UPDATE
 - **Method:** `PUT`
-- **Path:** `/pets/:petId`
+- **Path:** `/pets/<pet_id>`
 - **Response:** JSON
-- **Success Status Code:** 200
+- **Success Status Code:** 202
 - **Success Response Body:** A JSON object with the updated pet.
-- **Error Status Code:** 404 || 500
-- **Error Response Body:** A JSON object with an `error` key and a message describing the error.
+- **Error Status Code:** 500 || 404
+- **Error Response Body:** A JSON object with a error message describing the error.
 
 Let's get started! 🎉
 
 ## Create an UPDATE Route
 
-Let's create a new route to update a single pet. The **method** for this route is `PUT`, and the **path** is `/pets/:petId`. Use the `.put()` method on the `router` object to create the route and pass in the path and a callback function.
+Let's create a new route to update a single pet. The **method** for this route is `PUT`, and the **path** is `/pets/<pet_id>`. Use the `@app.route()` decorator with the url path and the methods option to create the route.
 
-```js
-// controllers/pets.js
-
-// UPDATE - PUT - /pets/:petId
-router.put('/:petId', async (req, res) => {
-    // Setting up for our code
-});
+```python
+@app.route('/pets/<pet_id>', methods=['PUT'])
+def update_pet(pet_id):
+    return f"Updating the pet with the id {pet_id}"
 ```
-
-> 🧠 We still do not need to add `/pets` to the path because the route is already in the `/pets` route.
 
 ### Test the Route
 
-Before moving on, we must test this route to ensure it works. We can do this by sending a response with a message to the client.
+Before moving on, we must test this route to ensure it works.
 
-```js
-// controllers/pets.js
-
-// UPDATE - PUT - /pets/:petId
-router.put('/:petId', async (req, res) => {
-    // Add a message to test the route
-    res.json({ message: `Update route with the param ${req.params.petId}` });
-});
-```
-
-Open Postman and send a `PUT` request to `http://localhost:3000/pets/1`. You should receive a JSON response with the `Update Route with the param 1` message. If you do not receive this message, debug before moving on.
+Open Postman and send a `PUT` request to `http://localhost:5000/pets/1`. You should receive a JSON response with the `Updating the pet with the id 1` message. If you do not receive this message, debug before moving on.
 
 ### Try - Update a Single Pet
 
-We have tested the route, so let's query the database and update a single pet. We can use the `.findByIdAndUpdate()` method on the `Pet` model. We'll use `await` to wait for the database to return the updated pet:
+We have tested the route, so let's query the database and update a single pet. We can use an `UPDATE pets` SQL query including the `pet_id` for the WHERE clause and the values in `request.json` for the values to SET.
 
-```js
-// controllers/pets.js
-
-// UPDATE - PUT - /pets/:petId
-router.put('/:petId', async (req, res) => {
-    try {
-        // Add query to update a single pet
-        const foundPet = await Pet.findByIdAndUpdate(req.params.petId, req.body);
-    } catch (error) {
-        // Setup for error handling
-    }
-});
+```python
+@app.route('/pets/<pet_id>', methods=['PUT'])
+def update_pet(pet_id):
+    try:
+      con = get_db_connection()
+      cursor = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+      cursor.execute("UPDATE pets SET name = %s, age = %s, breed = %s WHERE id = %s RETURNING *", (request.json['name'], request.json['age'], request.json['breed'], pet_id))
+      updated_pet = cursor.fetchone()
+      if updated_pet is None:
+        return "Pet Not Found", 404
+      con.commit()
+      cursor.close()
+      return updated_pet, 202
+    except Exception as e:
+      return str(e), 500
 ```
 
-The`.findByIdAndUpdate()` method is similar to the `.findById()` method in that both return `null` if the query is not found in the database. As a result, we have to handle a `404` not found error if the pet is not in the database. Let's add this to the try block:
+## Test the Route
 
-```js
-// controllers/pets.js
+Open up Postman and set up a PUT request to `/pets/<pet_id>`, including a JSON body with all the properties of a dog object: `name`, `age`, and `breed`.
 
-// UPDATE - PUT - /pets/:petId
-router.put('/:petId', async (req, res) => {
-    try {
-        const foundPet = await Pet.findByIdAndUpdate(req.params.petId, req.body);
-        // Add a check for a not found pet
-        if (!foundPet) {
-            res.status(404);
-            throw new Error('Pet not found.');
-        }
-    } catch (error) {
-        // Setup for error handling
-    }
-});
-```
+You should receive the successfully updated object as a response.
 
-Lastly, if we log the variable `foundPet` to the console, we will see the original pet *before* it was updated. We need to add an additional argument to the `.findByIdAndUpdate()` method to return the *updated* pet. Adding `{ new: true }` as the third argument will give us the updated resource, instead of the original. Once added, we can send a JSON response with the updated pet:
+Be sure to also test for the `pet_id` of a dog that doesn't exist or has been deleted: you should receive a 404 response.
 
-```js
-// controllers/pets.js
-
-// UPDATE - PUT - /pets/:petId
-router.put('/:petId', async (req, res) => {
-    try {
-        // Add { new: true } as the third argument
-        const foundPet = await Pet.findByIdAndUpdate(req.params.petId, req.body, { new: true });
-        if (!foundPet) {
-            res.status(404);
-            throw new Error('Pet not found.');
-        }
-        // Add a JSON response with the updated pet
-        res.json({ pet: foundPet });
-    } catch (error) {
-        // Setup for error handling
-    }
-});
-```
-
-## Catch - Errors
-
-We have set up a `catch` block in the `try...catch` statement and coded for the case where a pet is not found. Let's handle any `404` Not found errors and make sure we are changing the status code to `500` for any other errors that might occur.
-
-```js
-// controllers/pets.js
-
-// UPDATE - PUT - /pets/:petId
-router.put('/:petId', async (req, res) => {
-    try {
-        const foundPet = await Pet.findByIdAndUpdate(req.params.petId, req.body, { new: true });
-        if (!foundPet) {
-            res.status(404);
-            throw new Error('Pet not found.');
-        }
-        res.json({ pet: foundPet });
-    } catch (error) {
-        // Add code for errors
-        if (res.statusCode === 404) {
-            res.json({ error: error.message });
-        } else {
-            res.status(500).json({ error: error.message });
-        }
-    }
-});
-```
-
-> 🧠 Remember we have to do the `if...else` statement because if any other error occurs, we want to set the status code to `500` and respond to the client with a message describing the error. If we do not change the status code, it will remain `200`, and the client might not know there was an error.
+Note, however, that if you send a request that doesn't contain ALL the fields we listed in our `UPDATE` statement, we get a 500 error with the name of the property we didn't include.
 
