@@ -1,4 +1,4 @@
-# ![Express REST API - Create Route](./assets/hero.png)
+# ![Flask REST API - Create Route](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to create a new pet by interacting with the database and sending a JSON response to the client. 
 
@@ -12,168 +12,69 @@ We will be following these specs when building the route:
 - Method: `POST`
 - Path: `/pets`
 - Response: JSON
-- Success Status Code: 200
+- Success Status Code: 201
 - Success Response Body: A new Pet object
 - Error Status Code: 500
 - Error Response Body: A JSON object with an error key and a message describing the error
 
 ## Creating a POST route
 
-The purpose of this route is to handle data that is sent along with a form submission. Before we can start writing the route and controller function, we need to make a few additions to our existing code. In `server.js`, let's import the pet router file and add it to our `/pets` route.
+The purpose of this route is to handle data that is sent along with a form submission. To access data in the request, we'll need to update our import at the top of our `app.py` file:
 
-```js
-// server.js
-
-const dotenv = require('dotenv');
-dotenv.config();
-const express = require('express');
-const app = express();
-const mongoose = require('mongoose');
-
-// Import the controller file
-const petRouter = require('./controllers/pets.js');
-
-mongoose.connect(process.env.MONGODB_URI);
-
-mongoose.connection.on('connected', () => {
-    console.log(`Connected to MongoDB ${mongoose.connection.name}.`);
-});
-
-app.use(express.json());
-
-// Add the petRouter to the `/pets` route
-app.use('/pets', petRouter);
-
-app.listen(3000, () => {
-    console.log('The express app is ready!');
-});
+```python
+from flask import Flask, request
 ```
 
-Great, now all of our routes can be handled in `controllers/pets.js`! 
+Let's create the most basic route possible to print the `request.json` data and return that same object as a response.
 
-Just one more step - we need to import `express` so that we can make use of express methods: 
-
-```js
-// controllers/pets.js
-
-// Add these at the top of the file: 
-const express = require('express');
-const router = express.Router();
-
-const Pet = require('../models/pet.js');
+```python
+@app.route('/pets', methods=['POST'])
+def create_pet():
+  new_pet = request.json
+  print(new_pet)
+  return new_pet
 ```
 
-Now we're finally ready to define a route. Use the `.post()` method on the router object to create the route and pass in the path and a callback function.
+Testing it with Postman will require setting the "Body" property in the request builder:
 
-```js
-// controllers/pets.js
+![post-request](./assets/post-request.png)
 
-// CREATE - POST - /pets
-router.post('/', async (req, res) => {
+## Creating a New Pet in SQL
 
-});
+We need to construct a SQL query using the `request.json` object for inputs.
+
+Of course, when using **any** user input in a SQL statement, we need to protect against SQL Injection by preparing a **parameterized query**.
+
+We can find just such an example in the [psycopg documentation](https://www.psycopg.org/docs/usage.html)
+
+```python
+# Pass data to fill a query placeholders and let Psycopg perform
+# the correct conversion (no more SQL injections!)
+>>> cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",
+...      (100, "abc'def"))
 ```
 
-We are using `async` at the start of the callback function to allow us to use `await` inside of the function. This will enable us to asynchronously query the database for all pets.
+Let's include this query in our POST route, including the same connection boilerplate from our index route to get started:
 
-> 🧠 Notice how we have declared this path. We have just used / as the path. This is because we are already in the /pets route. This is a shorthand way of declaring the path. Check out server.js to see how we have declared the /pets route.
+```python
+@app.route('/pets', methods=['POST'])
+def create_pet():
+  try:
+    new_pet = request.json
+    con = get_db_connection()
+    cursor = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    cursor.execute("INSERT INTO pets (name, age, breed) VALUES (%s, %s, %s) RETURNING *", 
+                   (new_pet['name'], new_pet['age'], new_pet['breed']))
+    created_pet = cursor.fetchone()
+    con.commit()
+    cursor.close()
+    return created_pet, 201
+  except Exception as e:
+     return str(e), 500
+```
+
+Note the need for an explicit `RETURNING *` clause to ensure our SQL statement returns a value we can then send back to the user.
 
 ## Test the Route
 
-Let's test the route to ensure that it works - we can do this by sending a response with a message to the client.
-
-```js
-// controllers/pets.js
-
-// CREATE - POST - /pets
-router.post('/', async (req, res) => {
-  // Add a message to test the route
-  res.json({ message: 'Create Route' })
-});
-```
-
-Open Postman and send a POST request to `http://localhost:3000/pets`. You should receive a JSON response with the message Create Route. If you do not receive this message, debug before moving on.
-
-> 📚 If you are having trouble, check the terminal for error messages. Sometimes, the issue is simply that the server is not running.
-
-## Making a post request
-
-The route works, but now we want to actually make use of it being a `POST` route! We'll want to wrap our code in a `try...catch` block to handle any errors that may occur.
-
-### Try - Create a new pet
-
-Inside our controller function, we'll call `create()` on our `Pet` model, and pass in `req.body`. Once the `pet` is created, we'll send a JSON response with the new `pet` object. 
-
-```js
-// controllers/pets.js
-
-// CREATE - POST - /pets
-router.post('/', async (req, res) => {
-    try {
-        // Create a new pet with the data from req.body
-        const pet = await Pet.create(req.body);
-        res.json({ pet });
-    } catch (error) {
-        // Setup for error handling
-    }
-});
-```
-
-### Catch - errors
-
-Errors can occur in several places when querying the database. We need to handle these errors and send a response to the client that is easy to read and understand. Luckily, we have already set up a catch block in the `try...catch` statement. We can use this to catch any errors that might happen:
-
-```js
-// controllers/pets.js
-
-// CREATE - POST - /pets
-router.post('/', async (req, res) => {
-    try {
-        const pet = await Pet.create(req.body);
-        res.json({ pet });
-    } catch (error) {
-        res.json({ error: error.message });
-    }
-});
-```
-
-Inside the `error` object we will be given if anything is caught, there is a property called `message`. This is a string that describes the error that has occurred. We can use this to send a meaningful response to the client.
-
-> The error object is an instance of the built-in Error class in JavaScript. It has many valuable properties, one of them being message. For a complete list of Error capabilities, check out the [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error).
-
-## You Do: Test the create route with Postman
-
-Now that we have finished the route let's test it with Postman. We'll do this by sending a `POST` request to `http://localhost:3000/pets`. Recall that our pet schema has the following specifications:  
-
-```js
-const petSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  age: {
-    type: Number,
-    min: 0,
-  },
-  breed: String,
-});
-```
-
-Under the `Body` header, select `raw` and make sure the blue colored dropdown to the right is set to `JSON`. 
-
-![JSON dropdown](./assets/post-request.png)
-
-Your values will be different, but an example body would look something like this: 
-
-```json
-{
-  "name": "Daisy",
-  "age": "4",
-  "breed": "Pitbull" 
-}
-```
-
-Once you have the body composed, send a POST request to `http://localhost:3000/pets`. Test both success and error messages.
-
-- Success: You should receive a JSON response with the new pet object!
-- Error: You should receive a JSON response with an error message - most likely, that the `create()` failed due to bad form data. This message should describe the error that has occurred.
+Let's test the route to ensure that it works - this time, the response should include an `id` property that got added in the SQL database.
