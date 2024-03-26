@@ -64,5 +64,5 @@ You should receive the successfully updated object as a response.
 
 Be sure to also test for the `pet_id` of a dog that doesn't exist or has been deleted: you should receive a 404 response.
 
-Note, however, that if you send a request that doesn't contain ALL the fields we listed in our `UPDATE` statement, we get a 500 error with the name of the property we didn't include.
+Note, however, that if you send a request that doesn't contain ALL the fields we listed in our `UPDATE` statement, we get a 500 error with the name of the property we didn't include. 
 
