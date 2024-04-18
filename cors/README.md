@@ -15,39 +15,25 @@ Let's take this into the real world for a second. Think of Amazon or another lar
 Now by default, browsers restrict cross-origin HTTP requests initiated from scripts. This means that if you try to make a request from a different domain, the browser will block the request. This is where CORS comes in. CORS allows the server to specify who can access its resources. This is done by adding a special header to the response that the server sends back to the client. This header is called `Access-Control-Allow-Origin`. This header tells the browser which domains are allowed to access the server's resources.
 
 
-## Implement CORS in Express
+## Implement CORS in Flask
 
-First we need to install the `cors` package. This package will allow us to easily implement CORS in our Express application.
+First we need to install the `flask-cors` package. This package will allow us to easily implement CORS in our Flask application.
 
 ```bash
-npm install cors
+pipenv install flask-cors
 ```
 
-The way we use CORS in our application is by adding it as a middleware to our server file. Let's add the CORS middleware to our server file.
+We can consult the [documentation](https://flask-cors.readthedocs.io/en/latest/) on how to easily drop this module into our Flask app.
 
-```js
-// server.js
-// Other imports above
-const cors = require('cors');
+Simply invoke the provided `CORS` function on the `app` object in `app.py` before proceeding to define our routes, like so:
 
-const petRouter = require('./controllers/pets.js');
+```python
+from flask import Flask
+from flask_cors import CORS
 
-app.use(cors());
-// All other server code below
+app = Flask(__name__)
+CORS(app)
 ```
 
-If we leave the `cors()` function empty, it will allow all domains to access our resources. This is fine for development, but in production we will want to specify which domains are allowed to access our resources. We can do this by passing an options object to the `cors()` function. This object will have a `origin` key with a value of the domain we want to allow. We can also pass in an array of domains to allow multiple domains to access our resources.
-
-```js
-// server.js
-// Other imports above
-const cors = require('cors');
-
-const petRouter = require('./controllers/pets.js');
-
-app.use(cors({ origin: 'http://localhost:5173' }));
-// All other server code below
-```
-
-> 🧠 The `http://localhost:5173` is from the Vite React project but this can be changed to whatever we need to whitelist.
+And there it is! Of course, we'd want to use the many options available to us in the documentation once we're sure of what front-end applications will be making requests to our API. For now, however, this will make our API accessible and testable from any other application.
 
