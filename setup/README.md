@@ -1,4 +1,4 @@
-# ![[tktk Module Name] - Setup](./assets/hero.png)
+# ![Flask Postgres REST API - Setup](./assets/hero.png)
 
 ## Setup
 
@@ -8,14 +8,26 @@ Open your Terminal application and navigate to your **`~/code/ga/lectures`** dir
 cd ~/code/ga/lectures
 ```
 
-Make a new directory called **`[tktk-module-name]`**, then enter this directory:
+Make a new directory called **`flask-postgres-rest-api`**, then enter this directory:
 
 ```bash
-mkdir [tktk-module-name]
-cd [tktk-module-name]
+mkdir flask-postgres-rest-api
+cd flask-postgres-rest-api
 ```
 
-<!-- Other setup instructions here -->
+Initialize a new virtual environment inside your project directory and install Flask and pythons postgres library:
+
+```bash
+pipenv install flask psycopg2 flask-dotenv
+```
+
+This command will create a new `Pipfile` and `Pipfile.lock` in your project directory, specifying Flask as a dependency.
+
+Activate the virtual environment:
+
+```bash
+pipenv shell
+```
 
 Add the simplest Flask app boilerplate to `app.py`:
 
@@ -49,4 +61,10 @@ Open the contents of the directory in VSCode:
 
 ```bash
 code .
+```
+
+To deactivate the virtual environment when you're done, simply type:
+
+```bash
+exit
 ```
