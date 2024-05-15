@@ -1,4 +1,4 @@
-# ![Flask Postgres REST API - Setup](./assets/hero.png)
+# ![Flask API - Pets Back-End - Setup](./assets/hero.png)
 
 ## Setup
 
@@ -18,7 +18,7 @@ cd flask-postgres-rest-api
 Initialize a new virtual environment inside your project directory and install Flask and pythons postgres library:
 
 ```bash
-pipenv install flask psycopg2 flask-dotenv
+pipenv install flask psycopg2 python-dotenv
 ```
 
 This command will create a new `Pipfile` and `Pipfile.lock` in your project directory, specifying Flask as a dependency.
@@ -29,9 +29,11 @@ Activate the virtual environment:
 pipenv shell
 ```
 
-Add the simplest Flask app boilerplate to `app.py`:
+Add the following Flask app boilerplate to `app.py`:
 
 ```python
+# app.py
+
 # Import the 'Flask' class from the 'flask' library.
 from flask import Flask
 
@@ -55,7 +57,7 @@ Run the application from the terminal:
 python app.py
 ```
 
-And send a test request in your browser to localhost:5000 to hit the index route.
+In your browser, send a request to `localhost:5000` to hit the `index` route.
 
 Open the contents of the directory in VSCode:
 
