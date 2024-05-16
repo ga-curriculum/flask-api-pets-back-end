@@ -27,10 +27,10 @@ Add the following to `app.py`:
 @app.route('/pets/<pet_id>', methods=['DELETE'])
 def delete_pet(pet_id):
     try:
-        con = get_db_connection()
-        cursor = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        connection = get_db_connection()
+        cursor = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cursor.execute("SELECT * FROM pets WHERE id = %s", (pet_id,))
-        con.commit()
+        connection.commit()
         cursor.close()
         return "Pet deleted successfully", 204
     except Exception as e:
@@ -42,6 +42,7 @@ With the route in place, let's test it out in Postman.
 Open Postman and create a new request with the following details:
 
 - Use the drop-down menu to select `DELETE` as the method.
+
 - Enter the URL `http://localhost:5000/pets/<pet_id>` in the address bar, where `<pet_id>` is a valid pet id that exists in your database. If you need to create some more pets, use the `Create Route` we built earlier to add them to the database.
 
-After you have sent the request, you should receive a status code of `204` with no content in the response. This means the pet was successfully deleted from the database.
+After you have sent the request, you should receive a status code of `204` with **no content in the response**. This means the pet was successfully deleted from the database.

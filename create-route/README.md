@@ -70,17 +70,19 @@ Let's include this query in our POST route, including the same connection boiler
 def create_pet():
   try:
     new_pet = request.json
-    con = get_db_connection()
-    cursor = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    connection = get_db_connection()
+    cursor = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cursor.execute("INSERT INTO pets (name, age, breed) VALUES (%s, %s, %s) RETURNING *", 
                    (new_pet['name'], new_pet['age'], new_pet['breed']))
     created_pet = cursor.fetchone()
-    con.commit()
-    cursor.close()
+    connection.commit() # Commit changes to the database
+    connection.close()
     return created_pet, 201
   except Exception as e:
      return str(e), 500
 ```
+
+> 💡 Notice the use of `con.commit()` in the code above. The `.commit()` method is used to ensure that modifications are permanently saved to the database. Be sure to include this when executing create, update, or delete operations. 
 
 > 💡 Note the need for an explicit `RETURNING *` clause to ensure our SQL statement returns a value we can then send back to the user.
 

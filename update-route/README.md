@@ -46,14 +46,14 @@ We have tested the route, so let's query the database and update a single pet. W
 @app.route('/pets/<pet_id>', methods=['PUT'])
 def update_pet(pet_id):
     try:
-      con = get_db_connection()
-      cursor = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+      connection = get_db_connection()
+      cursor = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
       cursor.execute("UPDATE pets SET name = %s, age = %s, breed = %s WHERE id = %s RETURNING *", (request.json['name'], request.json['age'], request.json['breed'], pet_id))
       updated_pet = cursor.fetchone()
       if updated_pet is None:
         return "Pet Not Found", 404
-      con.commit()
-      cursor.close()
+      connection.commit()
+      connection.close()
       return updated_pet, 202
     except Exception as e:
       return str(e), 500

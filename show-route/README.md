@@ -48,16 +48,14 @@ Add the following to `app.py`:
 @app.route('/pets/<pet_id>', methods=['GET'])
 def show_pet(pet_id):
     try:
-        con = get_db_connection()
-        cursor = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        connection = get_db_connection()
+        cursor = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         cursor.execute("SELECT * FROM pets WHERE id = %s", (pet_id,))
         pet = cursor.fetchone()
         if pet is None:
-            cursor.close()
-            con.close()
+            connection.close()
             return "Pet Not Found", 404
-        cursor.close()
-        con.close()
+        connection.close()
         return pet, 200
     except Exception as e:
         return str(e), 500

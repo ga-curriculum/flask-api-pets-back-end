@@ -33,12 +33,11 @@ For error handling in our index route, we'll add a `try/except` block to send an
 @app.route('/pets')
 def pets_index():
   try:
-    con = get_db_connection()
-    cursor = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+    connection = get_db_connection()
+    cursor = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
     cursor.execute("SELECT * FROM pets;")
     pets = cursor.fetchall()
-    con.commit()
-    cursor.close()
+    connection.close()
     return pets
   except:
      return "Application Error", 500
