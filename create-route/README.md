@@ -1,10 +1,10 @@
-# ![Flask REST API - Create Route](./assets/hero.png)
+# ![Flask API - Pets Back-End - Create Route](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to create a new pet by interacting with the database and sending a JSON response to the client. 
 
 ## CREATE - Create route
 
-In this section, we will make a new route to create a new pet. This route will be a `POST` request to `/pets`, and will return a JSON response with the created pet. 
+In this section, we will make a new route for creating pet. This route will handle `POST` requests made to `/pets`, and will return a JSON response with the created pet. 
 
 We will be following these specs when building the route: 
 
@@ -17,17 +17,23 @@ We will be following these specs when building the route:
 - Error Status Code: 500
 - Error Response Body: A JSON object with an error key and a message describing the error
 
-## Creating a POST route
+## Defining a POST route
 
-The purpose of this route is to handle data that is sent along with a form submission. To access data in the request, we'll need to update our import at the top of our `app.py` file:
+Our `POST` route will be responsible for handling data sent along with a form submission and adding it to our database. 
+
+To access this form submission data, we'll need to make use of a Flask `request` object. Flask's `request` object represents the incoming request and allows access to information like headers and form data.
+
+Let's update the existing import at the top of `app.py` to include `request`:
 
 ```python
+# app.py
 from flask import Flask, request
 ```
 
-Let's create the most basic route possible to print the `request.json` data and return that same object as a response.
+Next, we'll make use the `request` object in our route to verify the data submitted by our users. Using `request.json`, we'll `print` the JSON data from the request to our console. Then we’ll return this JSON data as the response to the client.
 
 ```python
+# app.py
 @app.route('/pets', methods=['POST'])
 def create_pet():
   new_pet = request.json
@@ -35,21 +41,24 @@ def create_pet():
   return new_pet
 ```
 
-Testing it with Postman will require setting the "Body" property in the request builder:
+In Postman, try submitting a `POST` request to `http://127.0.0.1:5000/pets`. Your Postman request should look something like the example below:
 
-![post-request](./assets/post-request.png)
+![Post request](./assets/post-request.png)
 
-## Creating a New Pet in SQL
+If the request was successful, you should see the form data you submitted issued back as a response.
 
-We need to construct a SQL query using the `request.json` object for inputs.
+## Creating a new pet in SQL
 
-Of course, when using **any** user input in a SQL statement, we need to protect against SQL Injection by preparing a **parameterized query**.
+Now that we can access the submitted form data, we'll construct our SQL query. 
 
-We can find just such an example in the [psycopg documentation](https://www.psycopg.org/docs/usage.html)
+This SQL query will need use the `request.json` object as input. When using **any** user input in a SQL statement, we need to protect against SQL Injection by preparing a **parameterized query**.
 
-```python
+We can find just such an example in the [psycopg documentation](https://www.psycopg.org/docs/usage.html):
+
+```bash
 # Pass data to fill a query placeholders and let Psycopg perform
 # the correct conversion (no more SQL injections!)
+
 >>> cur.execute("INSERT INTO test (num, data) VALUES (%s, %s)",
 ...      (100, "abc'def"))
 ```
@@ -73,8 +82,8 @@ def create_pet():
      return str(e), 500
 ```
 
-Note the need for an explicit `RETURNING *` clause to ensure our SQL statement returns a value we can then send back to the user.
+> 💡 Note the need for an explicit `RETURNING *` clause to ensure our SQL statement returns a value we can then send back to the user.
 
-## Test the Route
+Once again, test the route using Postman. This time, ensure that the response includes an `id` property. This `id` property lets us know that the data has been added as a new row in the table. 
 
-Let's test the route to ensure that it works - this time, the response should include an `id` property that got added in the SQL database.
+![Post response](./assets/post-response.png)
