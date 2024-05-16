@@ -1,4 +1,4 @@
-# ![[tktk Module Name]](./assets/tktk-hero.png)
+# ![Flask API - Pets Back-End](./assets/hero.png)
 
 ## About
 
@@ -15,7 +15,7 @@ tktk Write a short but descriptive summary of the content in this module.
 | Lesson | Video Time | Video | Skills |
 | ------ |:----------:|:-----:| ------ |
 | [Setup](./setup/README.md)                               | -- | -- | Setting up the development environment  |
-| [Concepts](./concepts/README.md)                         | -- | -- | tktk skills covered                     |
+| [Concepts](./concepts/README.md)                         | -- | -- | Fundamentals of RESTful APIs |
 | [Defining the Database](./defining-the-database/README.md) | Define and export a mongoose model for use with an API.  |
 | [Create Route](./create-route/README.md) | Create a create route that returns JSON |
 | [Index Route](./index-route/README.md) | Create an index route that returns JSON |
