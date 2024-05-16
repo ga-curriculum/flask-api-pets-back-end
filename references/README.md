@@ -1,10 +1,11 @@
-# ![[tktk Module Name] - References](./assets/hero.png)
+# ![Flask API - Pets Back-End - References](./assets/hero.png)
 
 ## Lesson references
 
-- [tktk descriptive name of link]()
-- [tktk descriptive name of link]()
-- [tktk descriptive name of link]()
+
+- [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)
+- [AJAX](https://developer.mozilla.org/en-US/docs/Glossary/AJAX)
+- [XMLHttpRequest](https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest)
 
 ## Level Up references
 

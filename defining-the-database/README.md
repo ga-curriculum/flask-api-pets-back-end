@@ -124,26 +124,13 @@ def get_db_connection():
 
 > 💡 Our `get_db_connection()` will  be used to establish and return a connection to our PostgreSQL database. We'll need to call upon this whenever we wish to interact with our database within Flask.
 
-With a way to establish database connections, we should be ready to make a query.
+Next, within an `index` route, we'll make use of our database connection to execute a `SELECT` on the `pets` table.
 
-Locate the existing `index` route in `app.py`:
-
-```python
-# app.py
-@app.route('/')
-def index():
-  return "Hello, world!"
-```
-
-Let's modify this route so that it returns a list of pets from the database. 
-
-To do so, we'll use our database connection to execute a `SELECT` on the `pets` table.
-
-Modify your `index` route with the following:
+In `app.py`, add the following `index` route:
 
 ```python
 # app.py
-@app.route('/')
+@app.route('/pets')
 def index():
   con = get_db_connection()
   cursor = con.cursor()
@@ -154,7 +141,7 @@ def index():
   return pets
 ```
 
-In Postman (or your browser), make a `GET` request to `http://127.0.0.1:5000/`. 
+In Postman (or your browser), make a `GET` request to `http://127.0.0.1:5000/pets`. 
 
 You should see something like the following as a response:
 

@@ -17,7 +17,7 @@ We will be following these specs when building the route:
 - Error Status Code: 500
 - Error Response Body: A JSON object with an error key and a message describing the error
 
-## Defining a POST route
+## Defining the route
 
 Our `POST` route will be responsible for handling data sent along with a form submission and adding it to our database. 
 

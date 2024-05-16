@@ -1,8 +1,8 @@
-# ![Express REST API - Index Route](./assets/hero.png)
+# ![Flask API - Pets Back-End - Index Route](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students can create an index route to find all pets by interacting with the database and send a JSON response to the client.
 
-## READ - Index Route
+## READ - Index route
 
 In this section, we will create a new route to find all pets. This route will be a `GET` request to `/pets`, and will return a JSON response with all the pets in the database.
 
@@ -17,38 +17,17 @@ We will be following these specs when building the route:
 - **Error Status Code:** 500
 - **Error Response Body:** A JSON object with an `error` key and a message describing the error.
 
-Let's get started! 🎉
+Let's get started!
 
-## Create a GET Route - Index
+## Defining the route
 
-Inside `app.py`, create a new route to find all pets. The **method** for this route is `GET`, and the **path** is `/pets`. Use the `@app.route()` decorator to create the route, and pass in the path and `methods` argument.
+Fortunately, we already built and tested this query when setting up our database connection! If you'd like to verify the route, you should be able to make a Postman request to `localhost:5000/pets` and receive the same JSON array response as before.
 
-```python
-# app.py
+## Error Handling
 
-# READ - GET - /pets
-@app.route('/pets', methods=['GET'])
-def pets_index():
-    con = get_db_connection()
-    cursor = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-    cursor.execute("SELECT * FROM pets;")
-    pets = cursor.fetchall()
-    con.commit()
-    cursor.close()
-    return pets
-```
+Before moving on, let's add some error handling to our route. Adding error handling to an API is helpful, as it allows unexpected issues to be handled gracefully. Problems can arise from various sources, such as database connectivity issues, data retrieval errors, or runtime exceptions. 
 
-### Test the Route
-
-Fortunately, we already tested this query when setting up our database connection! 
-
-You should be able to make the same Postman request to `localhost:5000/pets` and receive the same JSON array response as before.
-
-### Error Handling
-
-Of course, this assumes our database connection is successful, which won't always be the case.
-
-We should add a try/except block to send an error as a response if something goes wrong:
+For error handling in our index route, we'll add a `try/except` block to send an error as a response if anything goes wrong:
 
 ```python
 @app.route('/pets')
@@ -65,7 +44,7 @@ def pets_index():
      return "Application Error", 500
 ```
 
-## 🎓 You do: Test the Index Route with Postman
+## 🎓 You Do: Test the Index route with Postman
 
 Now that we have finished the route let's test it with Postman. Send a `GET` request to `http://localhost:5000/pets`. Test both **success** and **error** messages.
 

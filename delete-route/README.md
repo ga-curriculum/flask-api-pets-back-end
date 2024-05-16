@@ -1,8 +1,8 @@
-# ![Express REST API - Delete Route](./assets/hero.png)
+# ![Flask API - Pets Back-End - Delete Route](./assets/hero.png)
 
 **Learning objective:** By the end of this lesson, students will be able to create a new route to delete a single pet by interacting with the database and sending a JSON response to the client.
 
-## DELETE - Delete Route
+## DELETE - Delete route
 
 In this section, we will create a new route to delete a single pet. This route will be a `DELETE` request to `/pets/<pet_id>`, returning a status of `204` with no content.
 
@@ -16,35 +16,32 @@ We will be following these specs when building the route:
 - **Error Status Code:** 404 || 500
 - **Error Response Body:** A JSON object with an `error` key and a message describing the error.
 
-## 🎓 You do: Create a DELETE route
+## Defining the route
 
-Create a new route to delete a single pet. Using the above specs, create a new route to delete a single pet from the database.
+Inside `app.py`, create a new route for removing a single pet from the database. Our route should use the `pet_id` parameter in the route handler function object to access the `pet_id` from the path. If a pet has been deleted successfully, we'll return a `204` status, with the message `"Pet Deleted Successfully"`.
 
-💡 Hints:
+Add the following to `app.py`:
 
-- Use the `pet_id` parameter in the route handler function object to access the `pet_id` from the path.
-- Use the `DELETE FROM pets WHERE id = ______` SQL query, including a parameter
-- You will need a `try...except` block to handle any errors that may occur.
-- You can return a simple string message and the status code from this route, such as `return "Pet Deleted Successfully", 204`.
-- Make sure to set the status code to `500` and send an error message for any errors that occur.
+```python
+# app.py
+@app.route('/pets/<pet_id>', methods=['DELETE'])
+def delete_pet(pet_id):
+    try:
+        con = get_db_connection()
+        cursor = con.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        cursor.execute("SELECT * FROM pets WHERE id = %s", (pet_id,))
+        con.commit()
+        cursor.close()
+        return "Pet deleted successfully", 204
+    except Exception as e:
+        return str(e), 500
+```
 
-## Test the delete route with Postman
-
-We have created the route, so let's test it to ensure it works. We'll do this by sending a `DELETE` request to the route using Postman.
+With the route in place, let's test it out in Postman.
 
 Open Postman and create a new request with the following details:
 
 - Use the drop-down menu to select `DELETE` as the method.
 - Enter the URL `http://localhost:5000/pets/<pet_id>` in the address bar, where `<pet_id>` is a valid pet id that exists in your database. If you need to create some more pets, use the `Create Route` we built earlier to add them to the database.
-- Click the `Send` button to send the request.
-
-![Delete request](./assets/delete-request.png)
-
-### Test for success
 
 After you have sent the request, you should receive a status code of `204` with no content in the response. This means the pet was successfully deleted from the database.
-
-<details>
-    <summary>Reveal Answer</summary>
-    <img src="./assets/delete-route.png" alt="">
-</details>
