@@ -6,9 +6,7 @@ In this module, students will practice the fundamental operations of creating, r
 
 ## Prerequisites
 
-- tktk
-- tktk
-- tktk
+- Intro to Flask
 
 ## Content
 
@@ -28,13 +26,9 @@ In this module, students will practice the fundamental operations of creating, r
 
 📖 [Reference Materials](./references/README.md)
 
-## Deployed sites
+## Solution code
 
-tktk If there is not a deployed site related to this module this section and all of its content should be removed.
-
-🌐 [Live site](#tktk-deployed-app-url)
-
-🐙 [Repository](#tktk-repository-for-deployed-app)
+🏁 [Solution code](https://git.generalassemb.ly/modular-curriculum-all-courses/flask-api-pets-back-end-solution)
 
 ## Internal resources
 
