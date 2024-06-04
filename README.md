@@ -10,17 +10,17 @@ In this module, students will practice the fundamental operations of creating, r
 
 ## Content
 
-| Lesson | Video Time | Video | Skills |
-| ------ |:----------:|:-----:| ------ |
-| [Setup](./setup/README.md) | -- | -- | Setting up the development environment |
-| [Concepts](./concepts/README.md) | -- | -- | Fundamentals of RESTful APIs |
-| [Defining the Database](./defining-the-database/README.md) | -- | -- |  Connect and interact with a SQL database in Flask   |
-| [Create Route](./create-route/README.md) | -- | -- |  Create a create route that returns JSON |
-| [Index Route](./index-route/README.md) | -- | -- |  Create an index route that returns JSON |
-| [Show Route](./show-route/README.md) | -- | -- |  Create a show route that returns JSON |
-| [Delete Route](./delete-route/README.md) | -- | -- |  Create a delete route that returns JSON |
-| [Update Route](./update-route/README.md) | -- | -- |  Create an update route that returns JSON |
-| [CORS](./cors/README.md) | -- | -- |  Enable CORS for the API |
+| Lesson                                                     | Video Time | Video | Skills                                            |
+| ---------------------------------------------------------- | :--------: | :---: | ------------------------------------------------- |
+| [Setup](./setup/README.md)                                 |     --     |  --   | Setting up the development environment            |
+| [Concepts](./concepts/README.md)                           |     --     |  --   | Fundamentals of RESTful APIs                      |
+| [Defining the Database](./defining-the-database/README.md) |     --     |  --   | Connect and interact with a SQL database in Flask |
+| [Create Route](./create-route/README.md)                   |     --     |  --   | Create a create route that returns JSON           |
+| [Index Route](./index-route/README.md)                     |     --     |  --   | Create an index route that returns JSON           |
+| [Show Route](./show-route/README.md)                       |     --     |  --   | Create a show route that returns JSON             |
+| [Delete Route](./delete-route/README.md)                   |     --     |  --   | Create a delete route that returns JSON           |
+| [Update Route](./update-route/README.md)                   |     --     |  --   | Create an update route that returns JSON          |
+| [CORS](./cors/README.md)                                   |     --     |  --   | Enable CORS for the API                           |
 
 ## References
 
