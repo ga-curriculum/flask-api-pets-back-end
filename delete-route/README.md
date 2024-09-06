@@ -29,7 +29,9 @@ def delete_pet(pet_id):
     try:
         connection = get_db_connection()
         cursor = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-        cursor.execute("SELECT * FROM pets WHERE id = %s", (pet_id,))
+        cursor.execute("DELETE FROM pets WHERE id = %s", (pet_id,))
+        if cursor.rowcount == 0:
+            return "Pet not found", 404
         connection.commit()
         cursor.close()
         return "Pet deleted successfully", 204
