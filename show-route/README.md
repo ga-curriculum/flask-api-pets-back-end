@@ -1,4 +1,7 @@
-# ![Flask API - Pets Back-End - Show Route](./assets/hero.png)
+<h1>
+  <span class="headline">Pets Back End</span>
+  <span class="subhead">Show Route</span>
+</h1>
 
 **Learning objective:** By the end of this lesson, students will be able to create a new route to find a single pet by interacting with the database and sending a JSON response to the client.
 
@@ -15,7 +18,7 @@ We will be following these specs when building the route:
 - **Success Status Code:** 200
 - **Success Response Body:** A JSON object with the pet that matches the `petId` parameter.
 - **Error Status Code:** 404 || 500
-- **Error Response Body:** A JSON object with an `error` key and a message describing the error.
+- **Error Response Body:** A JSON object with an error message describing the error.
 
 Let's get started!
 
@@ -31,7 +34,7 @@ def show_pet(pet_id):
     return f"Showing pet with id {pet_id}"
 ```
 
-With the code above, we've created a testable route to ensure the `pet_id` parameter is working as intended. Send a request to `localhost:5000/pets/1` in Postman and ensure the response message includes the `pet_id`. 
+With the code above, we've created a testable route to ensure the `pet_id` parameter is working as intended. Send a request to `localhost:5000/pets/1` in Postman and ensure the response message includes the `pet_id`.
 
 ## Querying the database
 

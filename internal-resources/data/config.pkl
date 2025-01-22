@@ -1,0 +1,51 @@
+amends "https://pages.git.generalassemb.ly/modular-curriculum-all-courses/universal-resources-internal/static/v2/pkl/template.pkl"
+
+import "microlessons.pkl" as mls
+
+// See template.pkl for full configuration options available here.
+
+// After modifying this file, use this command while in the root directory
+// for this project to create the final configuration file (config.json):
+// pkl eval -f json ./internal-resources/data/config.pkl -o %{moduleDir}/%{moduleName}.%{outputFormat}
+
+repo {
+  // This name is shown in the header nav to navigate users home
+  friendlyName = "Flask API - Pets Back End"
+  // This must match the repo name as it appears on GitHub exactly
+  name = "flask-api-pets-back-end"
+  type = "Lesson"
+}
+
+courses {
+  new {
+    name = "seb"
+    microlessons {
+      // add microlessons here, in the order they should be delivered
+      mls.setup
+      mls.concepts
+      mls.definingTheDatabase
+      mls.createRoute
+      mls.indexRoute
+      mls.showRoute
+      mls.deleteRoute
+      mls.updateRoute
+      mls.cors
+    }
+  }
+  new {
+    name = "fallback"
+    microlessons {
+      // add microlessons here, in the order they should be delivered
+      mls.setup
+      mls.concepts
+      mls.definingTheDatabase
+      mls.createRoute
+      mls.indexRoute
+      mls.showRoute
+      mls.deleteRoute
+      mls.updateRoute
+      mls.cors
+    }
+  }
+}
+

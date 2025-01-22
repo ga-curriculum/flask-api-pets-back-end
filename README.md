@@ -1,12 +1,13 @@
-# ![Flask API - Pets Back-End](./assets/hero.png)
+<h1>
+  <span class="prefix">Flask API</span>
+  <span class="headline">Pets Back End</span>
+</h1>
 
 ## About
 
-In this module, students will practice the fundamental operations of creating, reading, updating, and deleting data (CRUD) using the PostgreSQL and Flask. They will explore techniques for managing cross-origin resource sharing (CORS), allowing their APIs to safely interact with resources from various domains. Additionally, they will gain hands-on practice with Postman to test API functionality under different scenarios. By the end of this module, students will be equipped with the essential skills to develop and maintain a fully functional API in Flask.
+In this module, students will practice the fundamental operations of creating, reading, updating, and deleting data (CRUD) using the PostgreSQL and Flask. They will explore techniques for managing cross-origin resource sharing (CORS), allowing their APIs to safely interact with resources from various domains.
 
-## Prerequisites
-
-- Intro to Flask
+Additionally, they will gain hands-on practice with Postman to test API functionality under different scenarios. By the end of this module, students will be equipped with the essential skills to develop and maintain a fully functional API in Flask.
 
 ## Content
 
@@ -26,11 +27,22 @@ In this module, students will practice the fundamental operations of creating, r
 
 📖 [Reference Materials](./references/README.md)
 
-## Solution code
+## Internal
+
+### Prerequisites
+
+- Intro to Flask
+
+### Solution code
 
 🏁 [Solution code](https://git.generalassemb.ly/modular-curriculum-all-courses/flask-api-pets-back-end-solution)
 
-## Internal resources
+### Course landing pages
+
+- [SEB - Software Engineering Bootcamp](https://pages.git.generalassemb.ly/modular-curriculum-all-courses/flask-api-pets-back-end/canvas-landing-pages/seb.html)
+- [Fallback](https://pages.git.generalassemb.ly/modular-curriculum-all-courses/flask-api-pets-back-end/canvas-landing-pages/fallback.html)
+
+### Resources
 
 ✏️ [Instructor Guide](./internal-resources/instructor-guide.md)
 
@@ -40,4 +52,4 @@ In this module, students will practice the fundamental operations of creating, r
 
 ---
 
-**Find a 👾 bug 👾 or have suggestions? [Let us know](https://git.generalassemb.ly/modular-curriculum-all-courses/universal-resources-internal/blob/main/module-feedback.md)!**
+**Find a 👾 bug 👾 or have suggestions? [Let us know](https://pages.git.generalassemb.ly/modular-curriculum-all-courses/universal-resources-internal/module-feedback.html)!**

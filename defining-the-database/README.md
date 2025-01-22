@@ -1,4 +1,7 @@
-# ![Flask API - Pets Back-End - Defining the Database](./assets/hero.png)
+<h1>
+  <span class="headline">Pets Back End</span>
+  <span class="subhead">Defining the Database</span>
+</h1>
 
 **Learning objective:** By the end of this lesson, students will be able to connect to a SQL Database and make queries from Python.
 

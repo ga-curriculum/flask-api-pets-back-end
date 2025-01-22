@@ -1,4 +1,7 @@
-# ![Flask API - Pets Back-End - Setup](./assets/hero.png)
+<h1>
+  <span class="headline">Pets Back End</span>
+  <span class="subhead">Setup</span>
+</h1>
 
 ## Setup
 
@@ -42,7 +45,8 @@ from flask import Flask
 app = Flask(__name__)
 
 # Define our route
-# This syntax is using a Python decorator, which is essentially a succinct way to wrap a function in another function.
+# This syntax is using a Python decorator, which is essentially a 
+# succinct way to wrap a function in another function.
 @app.route('/')
 def index():
   return "Hello, world!"

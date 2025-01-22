@@ -1,4 +1,7 @@
-# ![Flask API - Pets Back-End - Index Route](./assets/hero.png)
+<h1>
+  <span class="headline">Pets Back End</span>
+  <span class="subhead">Index Route</span>
+</h1>
 
 **Learning objective:** By the end of this lesson, students can create an index route to find all pets by interacting with the database and send a JSON response to the client.
 
@@ -15,7 +18,7 @@ We will be following these specs when building the route:
 - **Success Status Code:** 200
 - **Success Response Body:** An array of all the pets in the database named `pets`. The array will be empty if there are no pets in the database.
 - **Error Status Code:** 500
-- **Error Response Body:** A JSON object with an `error` key and a message describing the error.
+- **Error Response Body:** A JSON object with an error message describing the error.
 
 Let's get started!
 
@@ -25,7 +28,7 @@ Fortunately, we already built and tested this query when setting up our database
 
 ## Error Handling
 
-Before moving on, let's add some error handling to our route. Adding error handling to an API is helpful, as it allows unexpected issues to be handled gracefully. Problems can arise from various sources, such as database connectivity issues, data retrieval errors, or runtime exceptions. 
+Before moving on, let's add some error handling to our route. Adding error handling to an API is helpful, as it allows unexpected issues to be handled gracefully. Problems can arise from various sources, such as database connectivity issues, data retrieval errors, or runtime exceptions.
 
 For error handling in our index route, we'll add a `try/except` block to send an error as a response if anything goes wrong:
 

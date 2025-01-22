@@ -1,4 +1,7 @@
-# ![Flask API - Pets Back-End - Delete Route](./assets/hero.png)
+<h1>
+  <span class="headline">Pets Back End</span>
+  <span class="subhead">Delete Route</span>
+</h1>
 
 **Learning objective:** By the end of this lesson, students will be able to create a new route to delete a single pet by interacting with the database and sending a JSON response to the client.
 
@@ -14,7 +17,7 @@ We will be following these specs when building the route:
 - **Response:** No Content
 - **Success Status Code:** 204
 - **Error Status Code:** 404 || 500
-- **Error Response Body:** A JSON object with an `error` key and a message describing the error.
+- **Error Response Body:** A JSON object with an error message describing the error.
 
 ## Defining the route
 

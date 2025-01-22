@@ -1,4 +1,7 @@
-# ![Flask API - Pets Back-End - Update Route](./assets/hero.png)
+<h1>
+  <span class="headline">Pets Back End</span>
+  <span class="subhead">Update Route</span>
+</h1>
 
 **Learning objective:** By the end of this lesson, students will be able to create a new route to update a single pet by interacting with the database and sending a JSON response to the client.
 
@@ -21,7 +24,7 @@ Let's get started! 🎉
 
 ## Defining the route
 
-Let's create a new route to update a single pet. 
+Let's create a new route to update a single pet.
 
 The **method** for this route is `PUT`, and the **path** is `/pets/<pet_id>`. Use the `@app.route()` decorator with the url path and the methods option to create the route.
 
@@ -63,4 +66,4 @@ Open up Postman and set up a PUT request to `/pets/<pet_id>`, including a JSON b
 
 You should receive the successfully updated object as a response.
 
- > 💡 If you try to update a a pet that doesn't exist or has been deleted, you should receive a `404` response. However, sending a request that doesn't contain **all** the fields we listed in our `UPDATE` statement, will produce a `500` error with the name of the missing properties. 
+> 💡 If you try to update a a pet that doesn't exist or has been deleted, you should receive a `404` response. However, sending a request that doesn't contain **all** the fields we listed in our `UPDATE` statement, will produce a `500` error with the name of the missing properties.

@@ -1,12 +1,15 @@
-# ![Flask API - Pets Back-End - Create Route](./assets/hero.png)
+<h1>
+  <span class="headline">Pets Back End</span>
+  <span class="subhead">Create Route</span>
+</h1>
 
-**Learning objective:** By the end of this lesson, students will be able to create a new pet by interacting with the database and sending a JSON response to the client. 
+**Learning objective:** By the end of this lesson, students will be able to create a new pet by interacting with the database and sending a JSON response to the client.
 
 ## CREATE - Create route
 
-In this section, we will make a new route for creating pet. This route will handle `POST` requests made to `/pets`, and will return a JSON response with the created pet. 
+In this section, we will make a new route for creating pet. This route will handle `POST` requests made to `/pets`, and will return a JSON response with the created pet.
 
-We will be following these specs when building the route: 
+We will be following these specs when building the route:
 
 - CRUD Action: CREATE
 - Method: `POST`
@@ -15,11 +18,11 @@ We will be following these specs when building the route:
 - Success Status Code: 201
 - Success Response Body: A new Pet object
 - Error Status Code: 500
-- Error Response Body: A JSON object with an error key and a message describing the error
+- Error Response Body: A JSON object with a message describing the error
 
 ## Defining the route
 
-Our `POST` route will be responsible for handling data sent along with a form submission and adding it to our database. 
+Our `POST` route will be responsible for handling data sent along with a form submission and adding it to our database.
 
 To access this form submission data, we'll need to make use of a Flask `request` object. Flask's `request` object represents the incoming request and allows access to information like headers and form data.
 
@@ -49,7 +52,7 @@ If the request was successful, you should see the form data you submitted issued
 
 ## Creating a new pet in SQL
 
-Now that we can access the submitted form data, we'll construct our SQL query. 
+Now that we can access the submitted form data, we'll construct our SQL query.
 
 This SQL query will need use the `request.json` object as input. When using **any** user input in a SQL statement, we need to protect against SQL Injection by preparing a **parameterized query**.
 
@@ -82,10 +85,10 @@ def create_pet():
      return str(e), 500
 ```
 
-> 💡 Notice the use of `con.commit()` in the code above. The `.commit()` method is used to ensure that modifications are permanently saved to the database. Be sure to include this when executing create, update, or delete operations. 
+Notice the use of `con.commit()` in the code above. The `.commit()` method is used to ensure that modifications are permanently saved to the database. Be sure to include this when executing create, update, or delete operations.
 
 > 💡 Note the need for an explicit `RETURNING *` clause to ensure our SQL statement returns a value we can then send back to the user.
 
-Once again, test the route using Postman. This time, ensure that the response includes an `id` property. This `id` property lets us know that the data has been added as a new row in the table. 
+Once again, test the route using Postman. This time, ensure that the response includes an `id` property. This `id` property lets us know that the data has been added as a new row in the table.
 
 ![Post response](./assets/post-response.png)
