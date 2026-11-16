@@ -35,7 +35,7 @@ Additionally, they will gain hands-on practice with Postman to test API function
 
 ### Solution code
 
-🏁 [Solution code](https://git.generalassemb.ly/modular-curriculum-all-courses/flask-api-pets-back-end-solution)
+🏁 [Solution code](https://github.com/ga-curriculum/flask-api-pets-back-end-solution)
 
 ### Course landing pages
 
